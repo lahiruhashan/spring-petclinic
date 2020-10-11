@@ -19,6 +19,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.time.LocalDate;
+
 /**
  * <code>Validator</code> for <code>Pet</code> forms.
  * <p>
@@ -33,6 +35,7 @@ public class PetValidator implements Validator {
 
 	private static final String REQUIRED = "required";
 	private static final String EXCEED_MAX_LENGTH = "Exceeds maximum length allowed";
+	private static final String EXCEED_MAX_DATE = "Birthday should be before today";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
@@ -55,6 +58,11 @@ public class PetValidator implements Validator {
 		// birth date validation
 		if (pet.getBirthDate() == null) {
 			errors.rejectValue("birthDate", REQUIRED, REQUIRED);
+		}
+
+		// birth date validation
+		if (pet.getBirthDate().isBefore(LocalDate.now())) {
+			errors.rejectValue("birthDate", EXCEED_MAX_DATE, EXCEED_MAX_DATE);
 		}
 	}
 
