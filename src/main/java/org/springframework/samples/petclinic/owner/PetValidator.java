@@ -32,6 +32,7 @@ import org.springframework.validation.Validator;
 public class PetValidator implements Validator {
 
 	private static final String REQUIRED = "required";
+	private static final String EXCEED_MAX_LENGTH = "Exceeds maximum length allowed";
 
 	@Override
 	public void validate(Object obj, Errors errors) {
@@ -43,7 +44,7 @@ public class PetValidator implements Validator {
 		}
 
 		if (name.length() > 10) {
-			errors.rejectValue("name", REQUIRED, REQUIRED);
+			errors.rejectValue("name", EXCEED_MAX_LENGTH, EXCEED_MAX_LENGTH);
 		}
 
 		// type validation
