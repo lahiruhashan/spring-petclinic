@@ -42,6 +42,10 @@ public class PetValidator implements Validator {
 			errors.rejectValue("name", REQUIRED, REQUIRED);
 		}
 
+		if (name.length() > 10) {
+			errors.rejectValue("name", REQUIRED, REQUIRED);
+		}
+
 		// type validation
 		if (pet.isNew() && pet.getType() == null) {
 			errors.rejectValue("type", REQUIRED, REQUIRED);
